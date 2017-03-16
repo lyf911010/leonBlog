@@ -1,0 +1,612 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leonBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/leonBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/leonBlog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/leonBlog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="小程序整体结构app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。app.json:在根">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序">
+<meta property="og:url" content="https://lyf911010.github.io/leonBlog/2017/03/15/wxapp/index.html">
+<meta property="og:site_name" content="Leon Blog">
+<meta property="og:description" content="小程序整体结构app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。app.json:在根">
+<meta property="og:updated_time" content="2017-03-15T14:21:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小程序">
+<meta name="twitter:description" content="小程序整体结构app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。app.json:在根">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leonBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyf911010.github.io/leonBlog/2017/03/15/wxapp/"/>
+
+
+
+
+
+  <title> 小程序 | Leon Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leonBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leon Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leonBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leonBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://lyf911010.github.io/leonBlog/leonBlog/2017/03/15/wxapp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/leonBlog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leon Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                小程序
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-15T21:54:05+08:00">
+                2017-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>小程序整体结构<br>app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。<br>app.json:在根目录下的app.json文件是整个小程序的配置文件。在配置文件中可以配置小程序的页面pages,顶部状态栏window，底部切换tabbar,网路超时networkTimeout。<br>app.wxss:在根目录下的app.wxss文件是整个小程序的样式文件。对于整个小程序一些公用的样式可以配置在这里。</p>
+<p>单页面开发<br>在根目录下创建单页面文件夹<br>index.js:通过Page注册单页面程序。一个完整的单页面具有一个完整的生命周期—onload,onready,onshow,onhide,onupload;在脚本中可以设置单页面的变量（相当于全局变量），把页面中需要用的参数定义在data中，方便页面的一些状态的改变和页面的动态渲染。<br>index.wxml：单页面页面结构<br>index.wxss：单页面页面样式<br>index.json：单页面配置文件，目前用到了就是覆盖全局配置文件中的window对象</p>
+<p>页面渲染<br>动态页面渲染需要几个条件：数据，模板。数据通过请求拿到之后，设置在当前页面的data中，在视图层通过获取请求渲染数据。当数据有了之后，就需要渲染的模板。小程序中使用template标签来表示一个模板。模板中的name代表了这个模板。在页面中使用的时候template标签上使用is属性来对应模板的name，在这里还需要把我们请求到的数据传到模板中，这时候需要在template中添加data属性来传递。对于模板外部应用还没有研究出来如何使用（TODO）.<br>页面的数据一般都需要遍历渲染，小程序使用Block标签来遍历渲染模板，这个标签没有意义不会在页面中渲染出来。</p>
+<p>组件<br>目前用到的组件：幻灯片swiper，使用方法比较简单，官网给的文档比较详细<br>滚动组件scroll-view，组件方法属性很多，我这边在列表页中使用了这个组件。列表页需要在纵向滚动，所以在组件上需要配置scroll-y属性，横向同理。列表页中还需要上拉刷新，这时候需要使用bindscrolltolower方法在脚本中处理上拉刷新的事件，有个比较坑的是，做上拉刷新的时候，需要个滚动组件一个高度，不然无效。</p>
+<p>模块<br>目前把异步请求单独作为一个模块使用。前面说过根目录下的app,js中有一个全局对象，在这个对象中可以存放数据和方法，所以在这个脚本中应用了模块，方法存放在全局属性中，在单页面中通过getApp()来获取。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/leonBlog/2017/03/15/mapCompent/" rel="prev" title="高德与谷歌地图使用和差异">
+                高德与谷歌地图使用和差异 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/leonBlog/images/avatar.gif"
+               alt="Leon" />
+          <p class="site-author-name" itemprop="name">Leon</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/leonBlog/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leon</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/leonBlog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/leonBlog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leonBlog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/leonBlog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leonBlog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
