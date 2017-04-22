@@ -87,16 +87,19 @@
 
 
 
-<meta name="description" content="小程序整体结构app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。app.json:在根">
+<meta name="description" content="ui自动化测试一.前奏由于种种原因，不能继续开发完善ui自动化测试工具，为了对自己几个月的总结，和为了以后能继续完善，所以记下这篇文章，记录工具的核心技术和运用到的技术栈
+二.总览在tools文件中主要包含的就是整个工具的前端代码。打开文件你会看到一个manifest.json文件，会联想到，难道这是一个谷歌插件？没错，因为工具是前端使用，做成插件在使用起来最为方便。现在来看下主要代码。popup">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小程序">
-<meta property="og:url" content="https://lyf911010.github.io/leonBlog/2017/03/15/wxapp/index.html">
+<meta property="og:title" content="ui自动化测试">
+<meta property="og:url" content="https://lyf911010.github.io/leonBlog/2017/04/22/uitest/index.html">
 <meta property="og:site_name" content="Leon Blog">
-<meta property="og:description" content="小程序整体结构app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。app.json:在根">
-<meta property="og:updated_time" content="2017-03-15T14:21:38.000Z">
+<meta property="og:description" content="ui自动化测试一.前奏由于种种原因，不能继续开发完善ui自动化测试工具，为了对自己几个月的总结，和为了以后能继续完善，所以记下这篇文章，记录工具的核心技术和运用到的技术栈
+二.总览在tools文件中主要包含的就是整个工具的前端代码。打开文件你会看到一个manifest.json文件，会联想到，难道这是一个谷歌插件？没错，因为工具是前端使用，做成插件在使用起来最为方便。现在来看下主要代码。popup">
+<meta property="og:updated_time" content="2017-04-22T08:55:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小程序">
-<meta name="twitter:description" content="小程序整体结构app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。app.json:在根">
+<meta name="twitter:title" content="ui自动化测试">
+<meta name="twitter:description" content="ui自动化测试一.前奏由于种种原因，不能继续开发完善ui自动化测试工具，为了对自己几个月的总结，和为了以后能继续完善，所以记下这篇文章，记录工具的核心技术和运用到的技术栈
+二.总览在tools文件中主要包含的就是整个工具的前端代码。打开文件你会看到一个manifest.json文件，会联想到，难道这是一个谷歌插件？没错，因为工具是前端使用，做成插件在使用起来最为方便。现在来看下主要代码。popup">
 
 
 
@@ -124,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://lyf911010.github.io/leonBlog/2017/03/15/wxapp/"/>
+  <link rel="canonical" href="https://lyf911010.github.io/leonBlog/2017/04/22/uitest/"/>
 
 
 
 
 
-  <title> 小程序 | Leon Blog </title>
+  <title> ui自动化测试 | Leon Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -239,7 +242,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://lyf911010.github.io/leonBlog/leonBlog/2017/03/15/wxapp/">
+    <link itemprop="mainEntityOfPage" href="https://lyf911010.github.io/leonBlog/leonBlog/2017/04/22/uitest/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Leon">
@@ -260,7 +263,7 @@
             
             
               
-                小程序
+                ui自动化测试
               
             
           </h1>
@@ -275,8 +278,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-15T21:54:05+08:00">
-                2017-03-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-22T00:00:00+08:00">
+                2017-04-22
               </time>
             
 
@@ -311,11 +314,9 @@
       
 
       
-        <p>小程序整体结构<br>app.js:在根目录下的app.js文件是整个小程序的js文件。在这个文件里面使用APP()来注册一个小程序。整个app有一个生命周期：onLanuch,onShow,onHide(加载，呈现，隐藏)，暂时还没有对这生命周期做过操作（TODO）.在App对象中还有一个全局对象，这个全局对象可以存放全局的参数或者是方法，在不同的页面中使用getApp()来调用。<br>app.json:在根目录下的app.json文件是整个小程序的配置文件。在配置文件中可以配置小程序的页面pages,顶部状态栏window，底部切换tabbar,网路超时networkTimeout。<br>app.wxss:在根目录下的app.wxss文件是整个小程序的样式文件。对于整个小程序一些公用的样式可以配置在这里。</p>
-<p>单页面开发<br>在根目录下创建单页面文件夹<br>index.js:通过Page注册单页面程序。一个完整的单页面具有一个完整的生命周期—onload,onready,onshow,onhide,onupload;在脚本中可以设置单页面的变量（相当于全局变量），把页面中需要用的参数定义在data中，方便页面的一些状态的改变和页面的动态渲染。<br>index.wxml：单页面页面结构<br>index.wxss：单页面页面样式<br>index.json：单页面配置文件，目前用到了就是覆盖全局配置文件中的window对象</p>
-<p>页面渲染<br>动态页面渲染需要几个条件：数据，模板。数据通过请求拿到之后，设置在当前页面的data中，在视图层通过获取请求渲染数据。当数据有了之后，就需要渲染的模板。小程序中使用template标签来表示一个模板。模板中的name代表了这个模板。在页面中使用的时候template标签上使用is属性来对应模板的name，在这里还需要把我们请求到的数据传到模板中，这时候需要在template中添加data属性来传递。对于模板外部应用还没有研究出来如何使用（TODO）.<br>页面的数据一般都需要遍历渲染，小程序使用Block标签来遍历渲染模板，这个标签没有意义不会在页面中渲染出来。</p>
-<p>组件<br>目前用到的组件：幻灯片swiper，使用方法比较简单，官网给的文档比较详细<br>滚动组件scroll-view，组件方法属性很多，我这边在列表页中使用了这个组件。列表页需要在纵向滚动，所以在组件上需要配置scroll-y属性，横向同理。列表页中还需要上拉刷新，这时候需要使用bindscrolltolower方法在脚本中处理上拉刷新的事件，有个比较坑的是，做上拉刷新的时候，需要个滚动组件一个高度，不然无效。</p>
-<p>模块<br>目前把异步请求单独作为一个模块使用。前面说过根目录下的app,js中有一个全局对象，在这个对象中可以存放数据和方法，所以在这个脚本中应用了模块，方法存放在全局属性中，在单页面中通过getApp()来获取。</p>
+        <h2 id="ui自动化测试"><a href="#ui自动化测试" class="headerlink" title="ui自动化测试"></a>ui自动化测试</h2><p><strong>一.前奏</strong><br>由于种种原因，不能继续开发完善ui自动化测试工具，为了对自己几个月的总结，和为了以后能继续完善，所以记下这篇文章，记录工具的核心技术和运用到的技术栈</p>
+<p><strong>二.总览</strong><br>在tools文件中主要包含的就是整个工具的前端代码。打开文件你会看到一个manifest.json文件，会联想到，难道这是一个谷歌插件？没错，因为工具是前端使用，做成插件在使用起来最为方便。现在来看下主要代码。<br>popup.html作为插件的页面，里面包含了插件呈现的所有页面代码。在页面最下面有两个最核心的脚本team.js  popup.js。<br>team.js在github的地址：<a href="https://github.com/chjj/term.js。使用这个脚本的作用，主要是通过socket获取服务器端保存的测试用例，输出过程和测试结果通过teamjs呈现在页面中。" target="_blank" rel="external">https://github.com/chjj/term.js。使用这个脚本的作用，主要是通过socket获取服务器端保存的测试用例，输出过程和测试结果通过teamjs呈现在页面中。</a><br>popupjs作为插件的入口脚本，其中引用了recorderjs和casperjs。<br>recorderjs是录制整个测试用例的核心脚本。要让每位同事手写测试用例学习成本过高，所以采用了录制的功能。在脚本中可以配置想要的功能。当开启录制功能后，右键会显示在脚本中配置的菜单栏。在录制中你的每一个操作都会被记录下来，保存在插件的后台脚本中的变量中。其实录制每一步的操作，也就是保存你每一步操作中使用到的dom对象，对于dom对象的解析来区分不同的操作。<br>在backgroundjs中的变量保存了每一步操作的dom对象之后，接下来就需要casperjs登场了。在脚本中主要的功能就是把刚刚保存在变量中操作，编译成测试用例。用例的语言使用的是caperjs，传送门：<a href="http://casperjs.org/" target="_blank" rel="external">casper语法</a>；在脚本中根据dom操作的类型，拼接出不同的测试用例。然后传到服务器中。<br>在test-service文件夹中，是整个工具的后端站点，提供了所有的接口地址。使用express框架mongodb作为数据库。如图。这是目前工具中使用到的接口地址，只要为前台显示的用例列表接口，当前页面所有被录制的dom列表，/resultlist中保存了每次运行用例的结果,/client接口中则是保存了用户信息。目录结构则是router处理不同分发的请求，model,controller对应每一个不同接口。</p>
+<p><strong>三.未来</strong><br>接下来还需要完善的：<br>1.测试用例的覆盖率的计算<br>2.对于post请求用例的操作无法被记录<br>3.表单页面中，如果使用的不是原生空间，操作无法被记录</p>
 
       
     </div>
@@ -346,15 +347,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/leonBlog/2017/03/15/mapCompent/" rel="next" title="高德与谷歌地图使用和差异">
+                <i class="fa fa-chevron-left"></i> 高德与谷歌地图使用和差异
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/leonBlog/2017/03/15/mapCompent/" rel="prev" title="高德与谷歌地图使用和差异">
-                高德与谷歌地图使用和差异 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -401,8 +402,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/leonBlog/images/avatar.gif"
@@ -446,6 +456,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ui自动化测试"><span class="nav-number">1.</span> <span class="nav-text">ui自动化测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
