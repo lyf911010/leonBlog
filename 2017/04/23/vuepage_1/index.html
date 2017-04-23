@@ -1,0 +1,693 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/leonBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/leonBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/leonBlog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/leonBlog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言前端变化太快，各种框架也是层出不穷，vue、react等各种框架。作为一个工作中常年使用jQuery,zepto的人来说，总要找个机会来探索下，所以在业余时间开了这个仓库（总觉得光看得来终觉浅）。出于个人主观因素，决定使用vue来作为前端框架，后端必须是node框架，我选择的是express，数据库使用的是mongodb。在持续更新中，会对自己摸索过程中遇到的坑作一个总结。
+项目概要前端
+.s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人博客页面之后台管理系统（一）">
+<meta property="og:url" content="https://lyf911010.github.io/leonBlog/2017/04/23/vuepage_1/index.html">
+<meta property="og:site_name" content="Leon Blog">
+<meta property="og:description" content="前言前端变化太快，各种框架也是层出不穷，vue、react等各种框架。作为一个工作中常年使用jQuery,zepto的人来说，总要找个机会来探索下，所以在业余时间开了这个仓库（总觉得光看得来终觉浅）。出于个人主观因素，决定使用vue来作为前端框架，后端必须是node框架，我选择的是express，数据库使用的是mongodb。在持续更新中，会对自己摸索过程中遇到的坑作一个总结。
+项目概要前端
+.s">
+<meta property="og:image" content="https://lyf911010.github.io/leonBlog/source/images/pic-1.png">
+<meta property="og:updated_time" content="2017-04-23T14:27:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="个人博客页面之后台管理系统（一）">
+<meta name="twitter:description" content="前言前端变化太快，各种框架也是层出不穷，vue、react等各种框架。作为一个工作中常年使用jQuery,zepto的人来说，总要找个机会来探索下，所以在业余时间开了这个仓库（总觉得光看得来终觉浅）。出于个人主观因素，决定使用vue来作为前端框架，后端必须是node框架，我选择的是express，数据库使用的是mongodb。在持续更新中，会对自己摸索过程中遇到的坑作一个总结。
+项目概要前端
+.s">
+<meta name="twitter:image" content="https://lyf911010.github.io/leonBlog/source/images/pic-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/leonBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyf911010.github.io/leonBlog/2017/04/23/vuepage_1/"/>
+
+
+
+
+
+  <title> 个人博客页面之后台管理系统（一） | Leon Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/leonBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leon Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/leonBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/leonBlog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/leonBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://lyf911010.github.io/leonBlog/leonBlog/2017/04/23/vuepage_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/11703428?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leon Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                个人博客页面之后台管理系统（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-23T00:00:00+08:00">
+                2017-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前端变化太快，各种框架也是层出不穷，vue、react等各种框架。作为一个工作中常年使用jQuery,zepto的人来说，总要找个机会来探索下，所以在业余时间开了这个仓库（总觉得光看得来终觉浅）。出于个人主观因素，决定使用vue来作为前端框架，后端必须是node框架，我选择的是express，数据库使用的是mongodb。在持续更新中，会对自己摸索过程中遇到的坑作一个总结。</p>
+<h3 id="项目概要"><a href="#项目概要" class="headerlink" title="项目概要"></a>项目概要</h3><h4 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h4><ul>
+<li>.src<br>.components  <ul>
+<li>header.vue //公共头部  </li>
+<li>leftMenu.vue //左侧导航栏<br>.page<br>.addblog  <ul>
+<li>addBlog.vue //编辑博客页面<br>.userInfo  </li>
+<li>userinfo.vue //个人信息页面<br>.router  </li>
+</ul>
+</li>
+<li>router.js //单页面路由<br>App.vue<br>main.js  </li>
+</ul>
+</li>
+</ul>
+<p>这个是目前在仓库中的前端项目结构。由于偷懒，没有自己去通过webpack搭建开发环境，所以依然使用的vue脚手架 vue-cli。对于脚手架的安装这边不在过多重复 传送门<a href="http://note.youdao.com/" target="_blank" rel="external">：https://github.com/vuejs/vue-cli</a>；<br>现在开发环境有了之后，就需要总体规划整个的项目结构。由于是后台页面和本着使用vue全家桶的宗旨，页面ui我使用了饿了么的element-ui，路由配置vue-roouter，异步接口请求使用了vue-resource。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import ElementUI from &apos;element-ui&apos;</div><div class="line">import &apos;element-ui/lib/theme-default/index.css&apos;</div><div class="line">import VueRouter from &apos;vue-router&apos;</div><div class="line">import resource from &apos;vue-resource&apos;</div><div class="line"></div><div class="line">Vue.use(ElementUI);</div><div class="line">Vue.use(VueRouter);</div><div class="line">Vue.use(resource);</div></pre></td></tr></table></figure>
+<p>安装之后在入口脚本中引用，并且把脚本配置在全局使用。可能会好奇，为什么Vue.use()之后，该组件就能全局使用了。于是去找了一个组件去看了下源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function install (Vue) &#123;</div><div class="line">if (install.installed) &#123; return &#125;</div><div class="line">  install.installed = true;</div><div class="line">  ........</div><div class="line">  Vue.component(&apos;router-view&apos;, View);</div><div class="line">  Vue.component(&apos;router-link&apos;, Link);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是vue-router脚本中的代码，可以看出的是，当我们使用Vue.use()的时候，触发了install()方法，在这个方法的最后处，主要还是注册了vue组件，所以Vue.use()之后，组件会被加载到入口文件中。<br>当开始在.vue文件中开始开发页面时，最先用到的就是elementui框架，参考地址<a href="http://note.youdao.com/" target="_blank" rel="external">：http://element.eleme.io/#/zh-CN/component/installation</a>，如何使用组件在官网中有详细的服用方法，中文api加上详细的demo实例，实在找不到有什么不用它的理由。当使用npm run dev之后会开启localhost:8080的页面地址<br><img src="/source/images/pic-1.png" alt="&#39;vue-router&#39;"> 。<br>左侧的菜单切换，渲染的是两个不同的组件，没有打开新页面只是单页面跳转。实现这个功能主要是依靠vue-router的作用，让我们来看下router文件夹下的脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">import userinfo from &apos;../page/userInfo/userinfo&apos; //个人信息</div><div class="line">import addblog from &apos;../page/addblog/addBlog&apos;    //博客编辑</div><div class="line"></div><div class="line">const routers = [</div><div class="line">  &#123;</div><div class="line">    path:&apos;/backstage/userinfo&apos;,</div><div class="line">    component:userinfo</div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    path:&apos;/backstage/addblog&apos;,</div><div class="line">    component:addblog</div><div class="line">  &#125;</div><div class="line">]</div><div class="line"></div><div class="line">export default routers;</div></pre></td></tr></table></figure>
+<p>脚本中配置了路由列表，当浏览器访问到对应列表中的地址后，对象component配置的组件就相对应的渲染。不过在一开始我配置完列表之后，打开对应地址页面并没有相应组件渲染。最后查了官网api，在App.vue中需要配置路由中组件渲染的地址，也算是入口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;div class=&quot;app&quot;&gt;</div><div class="line">    &lt;router-view&gt;&lt;/router-view&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure>
+<p>有了router-view标签之后，每次切换的组件都会在这个标签位置作为渲染。</p>
+<p>现在页面路由都齐了之后，据需要和后端的交互。使用jquery中，使用ajax，在vue中使用vue-resource 官网地址<a href="http://note.youdao.com/" target="_blank" rel="external">：https://github.com/pagekit/vue-resource</a>。最常用的就是get,post方法，上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">bindSubmit()&#123;</div><div class="line">      this.$http.post(&apos;http://127.0.0.1:3000/api/userinfos/putInfo&apos;,this.formDate,&#123;emulateJSON:true&#125;).</div><div class="line">        then((res) =&gt; &#123;</div><div class="line">          let code = res.body.code;</div><div class="line">          if(code === 201)&#123;</div><div class="line">            this.$message(&apos;保存成功&apos;);</div><div class="line">          &#125;</div><div class="line">        &#125; , (resErr) =&gt; &#123;</div><div class="line">            this.$message(&apos;系统异常&apos;);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>post请求比较特别的就是跨域问题，在options添加emulateJSON:true,允许post请求，当参数为true时，官网给出的解释是Send request body as application/x-www-form-urlencoded content type 意思大致就是当参数为true时，请求头中的content-type将以application/x-www-form-urlencoded方式编码，所以避免了跨域请求。</p>
+<p>接下来，还会对后端项目开发过程的介绍，也在研究阮一峰的RESTful api的设计指南，运用到实际开发中。</p>
+<p>项目地址：<a href="https://github.com/lyf911010/myblog" target="_blank" rel="external">https://github.com/lyf911010/myblog</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/leonBlog/2017/04/22/uitest/" rel="next" title="ui自动化测试">
+                <i class="fa fa-chevron-left"></i> ui自动化测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/11703428?v=3&s=460"
+               alt="Leon" />
+          <p class="site-author-name" itemprop="name">Leon</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/leonBlog/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lyf911010" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目概要"><span class="nav-number">2.</span> <span class="nav-text">项目概要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前端"><span class="nav-number">2.1.</span> <span class="nav-text">前端</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leon</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/leonBlog/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/leonBlog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/leonBlog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/leonBlog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/leonBlog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/leonBlog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
